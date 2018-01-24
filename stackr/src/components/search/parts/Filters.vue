@@ -1,6 +1,5 @@
 <template>
   <div class="">
-    <p>Filters</p>
   </div>
 </template>
 

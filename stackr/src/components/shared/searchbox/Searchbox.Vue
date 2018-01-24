@@ -1,16 +1,6 @@
 <template>
   <div>
-    <autocomplete
-    url="http://api.stackexchange.com/2.2/users"
-    :customParams="{ site: 'stackoverflow', key: 'LgYuyKY*02WURm6zUNHkzg((' }"
-    :debounce="500"
-    param="inname"
-    anchor="display_name"
-    label="display_name"
-    :process="reformatData"
-    :on-select="getData"
-    >
-  </autocomplete>
+    
   </div>
 </template>
 <script>
