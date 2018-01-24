@@ -1,29 +1,38 @@
 <template>
-  <div class="test">
-    <p>Hello from home</p>
-    <p>{{ newVar }}</p>
-    <button v-on:click="clickMe">Click Me</button>
-    <child></child>
-  </div>
+  <section>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card mb-12 box-shadow">
+          <div class="card-body">
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                    <small class="text-muted">9 mins</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+    </div>
+      <search></search>
+  </section>
 </template>
 
 <script>
-import Child from '@/components/Child';
+import Search from "@/components/search/Search";
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    'child' : Child
+    search: Search
   },
-  data () {
+  data() {
     return {
-      msg: 'Stackr Home',
+      msg: "Stackr Home",
       newVar: new Date().toString()
-    }
+    };
   },
-  methods: {
-      clickMe: function () {
-        this.newVar = (new Date()).toString()
-      }
-  }
-}
+  methods: {}
+};
 </script>
