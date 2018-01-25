@@ -45,7 +45,7 @@
                   Duration : from
                   <span class="badge badge-primary">{{duration[0]}}</span> to
                   <span class="badge badge-primary">{{duration[1]}}</span>
-                  <span v-on:click="clearSelection(2)" class="show-cursor badge badge-pill badge-primary"><span class="fas fa-times-circle"></span> clear</span>                  
+                  <span v-on:click="clearSelection(2)" class="show-cursor badge badge-pill badge-primary"><span class="fas fa-times-circle"></span> clear</span>
                 </h3>
               </section>
             </section>
@@ -164,7 +164,7 @@ h2 {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: opacity 0.3s;
 }
 .fade-enter,
 .fade-leave-to {
