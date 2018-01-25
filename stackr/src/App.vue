@@ -9,13 +9,13 @@
 </template>
 
 <script>
-import Header from "@/components/header/Header";
+import Header from '@/components/header/Header'
 export default {
-  name: "App",
+  name: 'App',
   components: {
-    "app-header": Header
+    'app-header': Header
   }
-};
+}
 </script>
 
 <style>
@@ -27,7 +27,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin-top: 60px;
 }
 .box-shadow {
   box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05);

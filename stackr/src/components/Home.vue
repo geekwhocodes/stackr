@@ -6,18 +6,18 @@
 </template>
 
 <script>
-import Search from "@/components/search/Search";
+import Search from '@/components/search/Search'
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
     search: Search
   },
-  data() {
+  data () {
     return {
-      msg: "Stackr Home",
+      msg: 'Stackr Home',
       newVar: new Date().toString()
-    };
+    }
   },
   methods: {}
-};
+}
 </script>
