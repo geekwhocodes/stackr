@@ -12,7 +12,7 @@ import DatePicker from 'vue2-datepicker'
 export default {
   name: 'Duration',
   components: { DatePicker },
-  data () {
+  data() {
     return {
       range: '',
       shortcuts: [
@@ -25,7 +25,7 @@ export default {
     }
   },
   watch: {
-    range: function (val) {
+    range: function(val) {
       this.$emit('duration-selected', JSON.parse(JSON.stringify(val)))
     }
   }

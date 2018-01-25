@@ -12,7 +12,7 @@ export default {
   components: {
     search: Search
   },
-  data () {
+  data() {
     return {
       msg: 'Stackr Home',
       newVar: new Date().toString()

@@ -12,7 +12,7 @@ export default {
   components: {
     autocomplete: Vue2Autocomplete
   },
-  data () {
+  data() {
     return {
       msg: 'Welcome to Vue2-typeahead',
       data: '',
@@ -29,10 +29,10 @@ export default {
   },
 
   methods: {
-    selectItem (item) {
+    selectItem(item) {
       this.$emit('user-selected', JSON.parse(JSON.stringify(item)))
     },
-    reformatData (response) {
+    reformatData(response) {
       if (response.items) {
         if (response.items.length > 0) return response.items
       }

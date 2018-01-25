@@ -13,6 +13,7 @@
               <h3 class="search-filter-title">
                 Site
                 <span class="badge badge-primary">{{site.api_site_parameter}}</span>
+                <span v-on:click="clearSelection(0)" class="show-cursor badge badge-pill badge-primary"><span class="fas fa-times-circle"></span> clear</span>
               </h3>
             </section>
           </section>
@@ -27,6 +28,7 @@
                 <h3 class="search-filter-title">
                   User
                   <span class="badge badge-primary">{{user.display_name}}</span>
+                  <span v-on:click="clearSelection(1)" class="show-cursor badge badge-pill badge-primary"><span class="fas fa-times-circle"></span> clear</span>
                 </h3>
               </section>
             </section>
@@ -43,6 +45,7 @@
                   Duration : from
                   <span class="badge badge-primary">{{duration[0]}}</span> to
                   <span class="badge badge-primary">{{duration[1]}}</span>
+                  <span v-on:click="clearSelection(2)" class="show-cursor badge badge-pill badge-primary"><span class="fas fa-times-circle"></span> clear</span>                  
                 </h3>
               </section>
             </section>
@@ -92,7 +95,7 @@ export default {
     filters: Filters,
     site: Site
   },
-  data () {
+  data() {
     return {
       site: null,
       user: null,
@@ -102,25 +105,48 @@ export default {
     }
   },
   methods: {
-    onSiteSelected (item) {
+    onSiteSelected(item) {
       this.site = item
       this.step = 1
     },
-    onUserSelected (user) {
+    onUserSelected(user) {
       this.user = user
       this.step = 2
     },
-    onDurationSelected (duration) {
+    onDurationSelected(duration) {
       this.duration = duration
       this.step = 3
+    },
+    clearSelection(step) {
+      switch (step) {
+        case 0:
+          this.site = null
+          this.user = null
+          this.duration = null
+          this.step = 0
+          break
+        case 1:
+          this.user = null
+          this.duration = null
+          this.step = 1
+          break
+        case 2:
+          this.duration = null
+          this.step = 2
+          break
+        default:
+          break
+      }
     }
   }
 }
 </script>
 
 <style scoped="scoped">
-.search-part {
+.show-cursor {
+  cursor: pointer;
 }
+
 h3.search-filter-title {
   text-transform: uppercase;
   font-weight: 800;

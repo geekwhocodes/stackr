@@ -15,7 +15,7 @@ var vm = {
   components: {
     vautocomplate: Autocomplete
   },
-  data () {
+  data() {
     return {
       item: null,
       items: [],
@@ -24,24 +24,24 @@ var vm = {
       active_site: null
     }
   },
-  created: function () {
+  created: function() {
     this.fetchItems()
   },
   methods: {
-    getLabel (item) {
+    getLabel(item) {
       return item.api_site_parameter
     },
-    update (text) {
+    update(text) {
       this.filteredItems = this.items.filter(item => {
         return new RegExp(text.toLowerCase()).test(
           item.api_site_parameter.toLowerCase()
         )
       })
     },
-    select (site) {
+    select(site) {
       this.active_site = site
     },
-    fetchItems () {
+    fetchItems() {
       var that = this
       axios
         .get(
@@ -59,7 +59,7 @@ var vm = {
     }
   },
   watch: {
-    active_site: function (val) {
+    active_site: function(val) {
       this.$emit('site-selected', JSON.parse(JSON.stringify(val)))
     }
   }
@@ -109,6 +109,7 @@ p {
   transition: box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
   max-height: 300px;
   overflow-y: scroll;
+  z-index: 10;
 }
 .v-autocomplete-list .v-autocomplete-list-item {
   padding: 5px 10px;
