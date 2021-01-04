@@ -27,7 +27,7 @@
               <section v-else>
                 <h3 class="search-filter-title">
                   User
-                  <span class="badge badge-primary">{{user.display_name}}</span>
+                  <span class="badge badge-primary">{{this.user}}</span>
                   <span v-on:click="clearSelection(1)" class="show-cursor badge badge-pill badge-primary"><span class="fas fa-times-circle"></span> clear</span>
                 </h3>
               </section>
@@ -67,15 +67,24 @@
           </transition>
 
           <transition name="fade">
-            <button class="btn btn-success" v-if="step > 2">Get report </button>
+            <button class="btn btn-success" v-if="step > 2" v-on:click="GetReputation()">Get report </button>
           </transition>
 
         </div>
       </div>
     </div>
-    <div class="col-md-12 col-sm-12 mt-2 align-self-stretch">
+    <div class="col-md-12 col-sm-12 mt-2 align-self-stretch" v-if="this.reputation != null && this.reputation.length >= 1">
       <div class="card mb-12 box-shadow">
-        <div class="card-body">
+        <div class="card-body" >
+          <h3>Total contributions : {{this.reputation.length}}</h3>
+          <p> Reputation Points : {{this.total_reputation_points}} </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 col-sm-12 mt-2 align-self-stretch" v-if="this.reputation != null && this.reputation.length <= 0">
+      <div class="card mb-12 box-shadow">
+        <div class="card-body" >
+          Nothing to show here
         </div>
       </div>
     </div>
@@ -83,6 +92,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import User from '@/components/search/parts/User'
 import Duration from '@/components/search/parts/Duration'
 import Filters from '@/components/search/parts/Filters'
@@ -101,21 +111,32 @@ export default {
       user: null,
       duration: null,
       filters: null,
-      step: 0
+      step: 0,
+      from: 0,
+      to: 0,
+      reputation: null,
+      total_reputation_points: null
     }
   },
   methods: {
     onSiteSelected(item) {
       this.site = item
+      console.log('site', this.site.api_site_parameter)
       this.step = 1
     },
     onUserSelected(user) {
       this.user = user
+      console.log('user', this.user)
       this.step = 2
     },
     onDurationSelected(duration) {
       this.duration = duration
+      console.log('duration...')
+      console.log(this.duration)
       this.step = 3
+      this.from = Math.floor((new Date(this.duration[0]).getTime() / 1000))
+      this.to = Math.floor((new Date(this.duration[1]).getTime() / 1000))
+      console.log('generated uri > ', this.GenerateUri())
     },
     clearSelection(step) {
       switch (step) {
@@ -136,6 +157,28 @@ export default {
           break
         default:
           break
+      }
+    },
+    GenerateUri() {
+      // uri = "http://api.stackexchange.com/2.2/users/" + this.user + "/reputation?pagesize=1000&site=" + this.site;
+      var uri = 'https://api.stackexchange.com/2.2/users/' + this.user + '/reputation?pagesize=100&fromdate=' + this.from + '&todate=' + this.to + '&order=desc&sort=reputation&site=' + this.site.api_site_parameter
+      return uri
+    },
+    async GetReputation() {
+      try {
+        var totalPoints = 0
+        // saxios.defaults.baseURL = 'http://localhost:8083'
+        const response = await axios.get(this.GenerateUri())
+        console.log(response.data)
+        if (response.data != null && response.data.items != null) {
+          this.reputation = response.data.items
+          response.data.items.forEach(function(a) {
+            totalPoints += a.reputation_change
+          })
+          this.total_reputation_points = totalPoints
+        }
+      } catch (e) {
+        console.error(e)
       }
     }
   }

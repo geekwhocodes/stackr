@@ -1,7 +1,12 @@
 <template>
   <div class="">
-    <autocomplete url="http://api.stackexchange.com/2.2/users" :customParams="{ site: 'stackoverflow', key: 'LgYuyKY*02WURm6zUNHkzg((' }" :debounce="1000" param="inname" :classes="{ wrapper: 'user-form-wrapper', input: 'user-form-input', list: 'data-list', item: 'data-list-item' }" anchor="display_name" label="display_name" :process="reformatData" :on-select="selectItem">
-    </autocomplete>
+    <!-- <autocomplete url="http://api.stackexchange.com/2.2/users" :customParams="{ site: 'stackoverflow', key: 'LgYuyKY*02WURm6zUNHkzg((' }" :debounce="1000" param="inname" :classes="{ wrapper: 'user-form-wrapper', input: 'user-form-input', list: 'data-list', item: 'data-list-item' }" anchor="display_name" label="display_name" :process="reformatData" :on-select="selectItem">
+    </autocomplete> -->
+    <div class="form-group">
+    <input type="text" class="form-control" aria-describedby="userid" placeholder="Enter user id"
+      v-model="username" min="0" max="4" v-on:change="selectItem()">
+    <small id="userid" class="form-text text-muted">User id(<b>not username</b>). example - 4958847</small>
+  </div>
   </div>
 </template>
 
@@ -14,23 +19,13 @@ export default {
   },
   data() {
     return {
-      msg: 'Welcome to Vue2-typeahead',
-      data: '',
-      showConfig: false,
-      selectFirst: false,
-      limit: 9999,
-      queryParamName: ':keyword',
-      minChars: 3,
-      delayTime: 500,
-      placeholder: 'Please input something',
-      classes: 'dropdown',
-      user: null
+      username: ''
     }
   },
 
   methods: {
-    selectItem(item) {
-      this.$emit('user-selected', JSON.parse(JSON.stringify(item)))
+    selectItem() {
+      this.$emit('user-selected', this.username)
     },
     reformatData(response) {
       if (response.items) {
